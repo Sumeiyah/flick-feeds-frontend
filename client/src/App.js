@@ -1,23 +1,11 @@
-import React from "react";
-import LandingPage from './Components/LandingPage'; 
-import Footer from './Components/Footer'; 
-//import UpdateProfile from './Components/UpdateProfile'; 
-
-
-
+import React from 'react';
+import LandingPage from './Components/LandingPage';
 
 function App() {
-
   return (
- 
     <div>
-
-    <LandingPage />
-
-    <Footer /> 
-   
+      <LandingPage />
     </div>
-  
   );
 }
 
