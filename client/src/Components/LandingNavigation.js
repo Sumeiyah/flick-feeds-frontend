@@ -9,7 +9,7 @@ function Nav() {
             <Link to='/' className='home-link'>MVC</Link>
         </div>
         <div className='buttons'>
-            <Link to='/signup' className='logout-button'>Sign In</Link>
+            {/* <Link to='/signup' className='logout-button'>Sign Up</Link> */}
             <Link to='/login' className='logout-button'>Log In</Link>
         </div>
     </div>
