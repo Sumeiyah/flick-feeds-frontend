@@ -25,7 +25,7 @@ function Login() {
       body: JSON.stringify(loginCred)
     })
       .then(res => {
-        //handle status code check h
+        //handle status code check hhh
 
         if(!res.ok){
             console.log(res.ok)
