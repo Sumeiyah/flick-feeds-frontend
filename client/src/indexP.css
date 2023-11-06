@@ -29,8 +29,11 @@ a {
 .header__wrapper header {
   width: 100%;
   background: url(https://cdn.pixabay.com/photo/2016/10/21/14/50/plouzane-1758197_640.jpg) no-repeat 50% 20% / cover;
+   /* background: url(https://artlist.io/stock-footage/clip/animation-sketch-gymnast-girl/259801) no-repeat 50% 20% / cover;
+  */
   min-height: calc(100px + 15vw);
 }
+/* */
 
 .header__wrapper .cols__container .left__col {
   padding: 25px 20px;
