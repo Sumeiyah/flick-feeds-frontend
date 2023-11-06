@@ -11,7 +11,7 @@ const ExploreMovies=()=> {
     const [users,setUsers]=useState([]);
 
     const getUsers = async () => {
-    fetch('https://trial1714-c295f7216f30.herokuapp.com/movies')
+    fetch('https://flickfeeds-602d4f3e68d7.herokuapp.com/movies')
     .then(response=>response.json())
     .then(data=> setUsers(data.movies)); 
 }
