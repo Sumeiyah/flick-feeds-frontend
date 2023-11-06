@@ -29,7 +29,6 @@ useEffect(()=>{
         <section className="explore_movies_section">
 
                     <div className="header__wrapper">
-                        <header></header>
                         <div className="cols__containerE">
  
                                  {/* <div className="right__col"> */}
