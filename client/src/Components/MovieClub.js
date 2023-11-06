@@ -1,30 +1,15 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../indexP.css';
 
 import '../App.css';
 import LandingNavigation2 from './LandingNavigation2'
 
-
-
-
-const Profile=()=> {
-
-        const [users,setUsers]=useState([]);
-    
-        const getUsers = async () => {
-        fetch('https://trial1714-c295f7216f30.herokuapp.com/movies')
-        .then(response=>response.json())
-        .then(data=> setUsers(data.movies)); 
-    }
-    
-    useEffect(()=>{
-        getUsers();
-    },[]);
-    
+function MovieClub(){
 
     return (
       
+
         <>
         <LandingNavigation2 />
                  <section className="profile_section">
@@ -74,23 +59,13 @@ const Profile=()=> {
 
                                     <div className="photos">
                                        
-
-
-{/* //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm     */}
-{
-    users.map((curElem)=> {
-        return (
-            <div key={curElem.id}>
-            <div>
-            <img src={curElem.ImagePath} alt='avatar'/>
-             </div>
-             <p className="grout">{curElem.Title}</p>
-             </div>
-        )
-    })
-}
-
- {/* //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm   */}
+                                       <div>
+                                       <div>
+                                        <img src="https://m.media-amazon.com/images/M/MV5BMTg4MDk1ODExN15BMl5BanBnXkFtZTgwNzIyNjg3MDE@._V1_SX300.jpg" alt="Photo"/>
+                                        </div>
+                                        <p className="grout">The Lego Movie</p>
+                                        <p>I loved the great humor in the movie. My best movie so far.</p>
+                                        </div>
 
  
 
@@ -102,11 +77,11 @@ const Profile=()=> {
                         </div>                
                       
                  </section>
-                 </>
+         </>
      
     
       );
 
 }
 
-export default Profile;
+export default MovieClub;

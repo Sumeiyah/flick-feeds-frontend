@@ -1,0 +1,147 @@
+/* Common styles for centering text and buttons */
+.text-center {
+    text-align: center;
+  }
+  
+  .vertical-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .horizontal-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Styles for the landing page and content */
+  .landing-page {
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .content {
+    background-image: url('https://images.unsplash.com/photo-1575919220112-0d5a2dc6a4b6?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Header styles */
+  .brand-name {
+    color: #ffffff;
+    font-family: "Inter-ExtraBold", Helvetica;
+    font-size: 24px;
+    font-weight: 800;
+    left: 17px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 7px;
+  }
+  
+  .nav-menu {
+    color: #ffffff;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  
+  .nav-menu ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .nav-menu ul li {
+    margin-right: 20px;
+  }
+  
+  .nav-menu ul li a {
+    text-decoration: none;
+    color: #f2eaea;
+    font-weight: bold; /* Add this line to make the text bold */
+    transition: border-bottom 0.3s;
+  }
+  
+  .nav-menu ul li a:hover {
+    border-bottom: 2px solid #df1818;
+  }
+  
+  
+  /* Centered text and buttons styles */
+  .text-center.vertical-center {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .text-center.horizontal-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Button styles */
+  /* Remove the grey border under the buttons and center them */
+.cta-button {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 10px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .cta-button:hover {
+    background-color: #b2070f;
+  }
+  
+  
+  /* New styles for the text and buttons */
+  .tagline {
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  .subtagline {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 20px 0;
+  }
+  
+  .cta-subtext {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 20px 0;
+  }
+  
+  .cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 20vh;
+  }
+  
+  .cta-buttons {
+    margin-top: auto; /* Move the buttons to the bottom of the container */
+    display: flex;
+    justify-content: center; /* Horizontally center the buttons */
+  }
+  
+  
