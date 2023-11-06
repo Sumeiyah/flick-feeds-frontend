@@ -24,12 +24,11 @@ function About() {
 
     <>
     <LandingNavigation2 />
-
-    <div class="container my-5">
-      <footer class="text-white text-center text-lg-start" style={Style2}>
-        <div class="container p-4">
+    <div class="container" >
+      <footer class="text-white text-center text-lg-start ms-5" style={Style2}>
+        <div class="container p-3">
           <div class="row mt-4">
-            <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+            <div class="col-lg-4 col-md-12 mb-2 mb-md-0">
               <h5 class="text-uppercase mb-4">About Us</h5>
               <h4>
                 Our Vision
@@ -43,7 +42,7 @@ function About() {
                 Join us to start your cinematic experience.
               </p>
 
-              <div class="mt-4">
+              <div class="mt-4" style={{position: "relative", top: "-30%", left: "105%"}}>
                 <a
                   className="btn btn-outline-light btn-floating m-4"
                   href="#!"
@@ -67,7 +66,7 @@ function About() {
                 </a>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <div class="col-lg-4 col-md-8 mb-2 mb-md-0 ms-3">
               <h5 class="text-uppercase mb-4 pb-1">Contact Us</h5>
               <ul class="fa-ul">
                 <li class="mb-3">
@@ -90,20 +89,20 @@ function About() {
                 </li>
               </ul>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <div class="col-lg-3 col-md-5 mb-2 mb-md-0 ms-5">
               <ul class="list-unstyled mb-4 mt-5">
                 <li class="mb-4">
-                  <a class="text-white text-underline-hover" href="k">
+                  <a class="text-white text-underline-hover" href="#">
                     Privacy Policy
                   </a>
                 </li>
                 <li class="mb-4">
-                  <a class="text-white text-underline-hover" href="k">
+                  <a class="text-white text-underline-hover" href="#">
                     Terms of Use
                   </a>
                 </li>
                 <li class="mb-4">
-                  <a class="text-white text-underline-hover" href="k">
+                  <a class="text-white text-underline-hover" href="#">
                     Help center
                   </a>
                 </li>
@@ -111,7 +110,7 @@ function About() {
             </div>
           </div>
         </div>
-        <div className="text-center p-3" style={Style1}>
+        <div className="text-center p-1 mt-n4" style={{Style1, marginTop : "-4.5rem" }}>
           All rights reserved.<br />
           © 2023 by FlickFeeds.com,Inc.
         </div>
