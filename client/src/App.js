@@ -7,7 +7,7 @@ import Signup from './Components/Signup';
 import Home from './Components/Home'
 import Profile from './Components/Profile'
 import ExploreMovies from './Components/ExploreMovies'
-import MovieClub from './Components/MovieClub'
+import ClubCard from './Components/ClubCard';
 import About from './Components/About'
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
         <Route path='dashboard' element={<Home />} />
         <Route path='profile' element={<Profile />} />
         <Route path='explore-movies' element={<ExploreMovies />}/> 
-        <Route path='movie-clubs' element={<MovieClub />} /> 
+        <Route path='movie-clubs' element={<ClubCard/>} /> 
         <Route path='about' element={<About />} />
       </Routes>
     </div>
