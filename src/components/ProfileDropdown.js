@@ -1,0 +1,93 @@
+// src/components/ProfileDropdown.js
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+function ProfileDropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Retrieve username from localStorage
+    const username = localStorage.getItem('username');
+    if (username) {
+      // Fetch user profile from the backend
+      fetch(`http://127.0.0.1:5000/profile/${username}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch user profile');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.UserID) {
+            setUser(data); // Store user data for display
+          } else {
+            console.error('User profile not found:', data.message);
+          }
+        })
+        .catch((error) => console.error('Error fetching user profile:', error));
+    } else {
+      console.error('Username not found in localStorage');
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('username');
+    navigate('/login'); // Redirect to login page after logout
+  };
+
+  if (!user) {
+    return (
+      <div className="relative">
+        <button onClick={() => setIsOpen(!isOpen)} className="w-10 h-10 rounded-full bg-gray-500">
+          {/* Placeholder button */}
+        </button>
+        {isOpen && (
+          <div className="absolute right-0 top-12 bg-gray-900 text-white w-64 h-auto rounded-lg shadow-lg z-10">
+            <div className="px-4 py-3 border-b border-gray-700">
+              <p className="text-lg font-semibold">Loading...</p>
+              <p className="text-sm text-gray-400">Please wait</p>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative">
+      <img
+        src={user.ProfilePicture || 'https://via.placeholder.com/40'}
+        alt="Profile"
+        className="w-10 h-10 rounded-full cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      />
+      {isOpen && (
+        <div className="absolute right-0 top-12 bg-gray-900 text-white w-64 h-auto rounded-lg shadow-lg z-10">
+          <div className="px-4 py-3 border-b border-gray-700">
+            <p className="text-lg font-semibold">{user.Username}</p>
+            <p className="text-sm text-gray-400">{user.Email}</p>
+          </div>
+          <ul className="py-2">
+            <li>
+              <Link to="/user/profile" className="block px-4 py-2 hover:bg-gray-700">Your Profile</Link>
+            </li>
+            <li>
+              <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-red-600">
+                Sign Out
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default ProfileDropdown;
