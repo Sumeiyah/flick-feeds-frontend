@@ -7,7 +7,7 @@ function NavBar() {
   return (
     <nav className="bg-black px-4 py-3 border-b border-gray-700">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-red-600 text-2xl font-bold">Flick Feeds</Link>
+        <Link to="/" className="text-red-600 text-2xl font-bold">FlickFeeds</Link>
         <div className="space-x-4 flex items-center">
           <Link to="/" className="text-white hover:text-red-500">Home</Link>
           <Link to="/feed" className="text-white hover:text-red-500">Posts</Link>

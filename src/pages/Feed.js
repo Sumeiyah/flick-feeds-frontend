@@ -20,7 +20,7 @@ function Feed() {
 
   const handleLike = async (postId) => {
     try {
-      await axios.post(`https://flick-feeds-backend.onrender.com/like_post/${postId}`);
+      await axios.post(`http://127.0.0.1:5000/like_post/${postId}`);
       setPosts(posts.map(post => post.PostID === postId ? {...post, Likes: post.Likes + 1} : post));
     } catch (error) {
       console.error("Error liking post:", error);
@@ -29,7 +29,7 @@ function Feed() {
 
   const handleAddComment = async (postId) => {
     try {
-      await axios.post(`https://flick-feeds-backend.onrender.com/comment_on_post/${postId}`, {
+      await axios.post(`http://127.0.0.1:5000/comment_on_post/${postId}`, {
         comment_text: commentText[postId]
       });
       setCommentText({ ...commentText, [postId]: '' });

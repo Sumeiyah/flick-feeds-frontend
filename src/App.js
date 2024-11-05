@@ -5,10 +5,11 @@ import Login from './components/Login';
 import Register from './components/Register';
 import HomePage from './pages/HomePage';
 import Feed from './pages/Feed';
-import UserProfile from './pages/UserProfile';
-import Clubs from './pages/Clubs';
 import ProfilePage from './pages/ProfilePage';
+import Clubs from './pages/Clubs';
 import NavBar from './components/NavBar';
+import UpdateProfile from './pages/UpdateProfile';
+
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
-          <Route path="/user/profile" element={<ProfilePage />} />
+          {/* Update this line to accept a username parameter */}
+          <Route path="/profile/:username" element={<ProfilePage />} />
           <Route path="/clubs" element={<Clubs />} />
+          <Route path="/update_profile/:userId" element={<UpdateProfile />} />
+
         </Routes>
       </div>
     </Router>

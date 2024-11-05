@@ -76,7 +76,9 @@ function ProfileDropdown() {
           </div>
           <ul className="py-2">
             <li>
-              <Link to="/user/profile" className="block px-4 py-2 hover:bg-gray-700">Your Profile</Link>
+              <Link to={`/profile/${user.Username}`} className="block px-4 py-2 hover:bg-gray-700">
+                Your Profile
+              </Link>
             </li>
             <li>
               <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-red-600">
