@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       const response = await fetch('http://127.0.0.1:5000/login', {
         method: 'POST',
@@ -19,14 +19,18 @@ const Login = () => {
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
-        alert('Login Successful!');
+        console.log('Login Successful!');
+        console.log('Access Token:', data.access_token); // Log the token in the console
+  
+        // Persist access token and username in localStorage
         localStorage.setItem('access_token', data.access_token);
-        localStorage.setItem('username', data.username);
-
+        localStorage.setItem('username', data.user.Username);
+  
+        // Redirect to home page
         window.location.href = '/';
       } else {
         alert(data.message || 'Login failed.');
@@ -36,6 +40,8 @@ const Login = () => {
       console.error('Error during fetch:', error);
     }
   };
+  
+  
 
   return (
     <div style={{

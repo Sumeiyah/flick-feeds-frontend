@@ -22,13 +22,21 @@ function MovieDetail() {
   }, [id]);
 
   const handleAddToWatchlist = async () => {
-    // API call to add to watchlist
-    console.log("Add to watchlist");
+    try {
+      await axios.post(`http://127.0.0.1:5000/add_to_watchlist`, { movieId: id });
+      alert("Added to watchlist");
+    } catch (error) {
+      console.error("Error adding to watchlist:", error);
+    }
   };
 
   const handleReviewSubmit = async () => {
-    // Submit review API call
-    console.log("Submit review:", review, rating);
+    try {
+      await axios.post(`http://127.0.0.1:5000/submit_review`, { movieId: id, review, rating });
+      alert("Review submitted");
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
   };
 
   if (!movie) return <p>Loading...</p>;
@@ -37,7 +45,8 @@ function MovieDetail() {
     <div className="container mx-auto py-8 text-white">
       <img src={movie.ImagePath} alt={movie.Title} className="w-full h-96 object-cover mb-4" />
       <h1 className="text-3xl font-bold">{movie.Title}</h1>
-      <p className="text-gray-400">{movie.Synopsis}</p>
+      <p className="text-gray-400">{movie.Genre} | {movie.ReleaseYear}</p>
+      <p className="text-gray-300">{movie.Synopsis}</p>
       <button onClick={handleAddToWatchlist} className="mt-4 bg-red-600 px-4 py-2 rounded">Add to Watchlist</button>
       <div className="mt-6">
         <h2 className="text-xl">Leave a Review</h2>

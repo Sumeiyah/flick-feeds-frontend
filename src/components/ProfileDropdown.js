@@ -1,11 +1,12 @@
-// src/components/ProfileDropdown.js
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function ProfileDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to get the current location
+  const dropdownRef = useRef();
 
   useEffect(() => {
     // Retrieve username from localStorage
@@ -36,6 +37,25 @@ function ProfileDropdown() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Close dropdown on location change
+    setIsOpen(false);
+  }, [location]); // Runs whenever the location changes
+
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('username');
@@ -61,7 +81,7 @@ function ProfileDropdown() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <img
         src={user.ProfilePicture || 'https://via.placeholder.com/40'}
         alt="Profile"

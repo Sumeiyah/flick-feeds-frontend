@@ -9,6 +9,8 @@ import ProfilePage from './pages/ProfilePage';
 import Clubs from './pages/Clubs';
 import NavBar from './components/NavBar';
 import UpdateProfile from './pages/UpdateProfile';
+import UserSearch from './components/UserSearch';
+
 
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/users" element={<UserSearch />} />
           {/* Update this line to accept a username parameter */}
           <Route path="/profile/:username" element={<ProfilePage />} />
           <Route path="/clubs" element={<Clubs />} />
