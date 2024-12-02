@@ -47,7 +47,7 @@ function UserSearch() {
         filter: 'brightness(0.9)',
       }}
     >
-      <div className="bg-black bg-opacity-70 min-h-screen flex flex-col items-center pt-16">
+      <div className="bg-black bg-opacity-70 min-h-screen flex flex-col items-center pt-24 py-16">
         <h1 className="text-4xl font-bold text-red-500 mb-8">Search Users</h1>
         <div className="mb-4 relative w-full sm:w-1/2">
           <input

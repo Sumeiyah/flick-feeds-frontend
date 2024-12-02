@@ -64,21 +64,33 @@ function ProfileDropdown() {
 
   if (!user) {
     return (
-      <div className="relative">
-        <button onClick={() => setIsOpen(!isOpen)} className="w-10 h-10 rounded-full bg-gray-500">
-          {/* Placeholder button */}
+      <div className="relative" ref={dropdownRef}>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center"
+        >
+          ?
         </button>
         {isOpen && (
           <div className="absolute right-0 top-12 bg-gray-900 text-white w-64 h-auto rounded-lg shadow-lg z-10">
             <div className="px-4 py-3 border-b border-gray-700">
-              <p className="text-lg font-semibold">Loading...</p>
-              <p className="text-sm text-gray-400">Please wait</p>
+              <p className="text-lg font-semibold text-red-500">User Not Found</p>
+              <p className="text-sm text-gray-400">The user does not exist.</p>
+            </div>
+            <div className="px-4 py-3">
+              <button
+                onClick={() => navigate('/login')}
+                className="bg-blue-500 px-4 py-2 w-full rounded text-white hover:bg-blue-600"
+              >
+                Go to Login
+              </button>
             </div>
           </div>
         )}
       </div>
     );
   }
+  
 
   return (
     <div className="relative" ref={dropdownRef}>

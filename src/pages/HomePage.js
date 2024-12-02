@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NavBar from "../components/NavBar";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 function HomePage() {
   const [latestMovies, setLatestMovies] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -13,7 +14,10 @@ function HomePage() {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isGenreModalOpen, setIsGenreModalOpen] = useState(false);
   const [watchlist, setWatchlist] = useState([]);
-  const [user, setUser] = useState(null);
+    // eslint-disable-next-line
+  const [searchParams] = useSearchParams();
+  const [highlightedMovieId, setHighlightedMovieId] = useState(null);
+
 
   // Fetch movie data
   useEffect(() => {
@@ -29,7 +33,7 @@ function HomePage() {
             new Date(movie.published).getFullYear() >= 2024
         );
         setLatestMovies(latestData);
-
+  
         const trendingResponse = await axios.get(
           "https://api.kinocheck.com/trailers/trending?language=en"
         );
@@ -40,8 +44,10 @@ function HomePage() {
             new Date(movie.published).getFullYear() >= 2000
         );
         setTrendingMovies(trendingData);
-
-        const recommendedResponse = await axios.get("http://127.0.0.1:5000/movies");
+  
+        const recommendedResponse = await axios.get(
+          "http://127.0.0.1:5000/movies"
+        );
         const moviesData = recommendedResponse.data.movies || [];
         const filteredMovies = moviesData.filter(
           (movie) =>
@@ -54,27 +60,60 @@ function HomePage() {
             movie.Trailer
         );
         setRecommendedMovies(filteredMovies);
-
+  
         const allGenres = new Set();
         filteredMovies.forEach((movie) =>
           movie.Genre.split(",").forEach((genre) => allGenres.add(genre.trim()))
         );
         setGenres(Array.from(allGenres));
-
+  
         // Fetch user info and watchlist
-        const userResponse = await axios.get("http://127.0.0.1:5000/profile", {
-          withCredentials: true,
-        });
-        setUser(userResponse.data.user);
+        const username = localStorage.getItem("username"); // Retrieve username
+        if (!username) throw new Error("Username not found");
+  
+        const userResponse = await axios.get(
+          `http://127.0.0.1:5000/profile/${username}`,
+          {
+            withCredentials: true,
+          }
+        );
         setWatchlist(userResponse.data.watchlist || []);
       } catch (error) {
         console.error("Error fetching movies or user data:", error);
       }
     };
-
+  
     fetchMoviesData();
   }, []);
-
+  
+  useEffect(() => {
+    const scrollToAndHighlightMovie = () => {
+      const params = new URLSearchParams(window.location.search);
+      const movieId = params.get("movieId");
+      if (movieId) {
+        const movieElement = document.getElementById(`movie-${movieId}`);
+        if (movieElement) {
+          // Scroll to the movie
+          movieElement.scrollIntoView({ behavior: "smooth" });
+  
+          // Highlight the movie
+          setHighlightedMovieId(movieId);
+  
+          // Remove the highlight after 3 seconds
+          setTimeout(() => {
+            setHighlightedMovieId(null);
+          }, 3000); // Adjust the time if needed
+        } else {
+          console.warn(`Movie element with id "movie-${movieId}" not found.`);
+        }
+      }
+    };
+  
+    if (recommendedMovies.length > 0) {
+      scrollToAndHighlightMovie();
+    }
+  }, [recommendedMovies]);
+  
   // Automatic rotation for latest movies
   useEffect(() => {
     const interval = setInterval(() => {
@@ -166,7 +205,7 @@ function HomePage() {
       />
       {/* Latest Movies */}
 {!isSearchOrFilterActive && (
-  <section className="relative h-[70vh] mb-4"> {/* Adjusted height and spacing */}
+  <section className="relative h-[80vh] mb-4"> {/* Adjusted height and spacing */}
     <AnimatePresence>
       {latestMovies.length > 0 && (
         <motion.div
@@ -259,51 +298,59 @@ function HomePage() {
 
   
       {/* Recommended Movies */}
-      <section className="py-8">
-        <h2 className="text-3xl font-bold text-red-500 mb-6 px-4 flex items-center justify-center">
-          All Movies
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
-          {filteredMovies.map((movie) => (
-            <div
-              key={movie.MovieID}
-              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition cursor-pointer"
-              onClick={() => setSelectedMovie(movie)}
-            >
-              <img
-                src={movie.ImagePath}
-                alt={movie.Title}
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-bold text-xl truncate">{movie.Title}</h3>
-                <p className="text-sm text-gray-400">{movie.Genre}</p>
-                <div className="flex justify-between items-center mt-4">
-                  <a
-                    href={movie.Trailer}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 underline"
-                  >
-                    Watch Trailer
-                  </a>
-                  <button
-                    className="text-2xl"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleAddToWatchlist(movie);
-                    }}
-                  >
-                    {watchlist.some((wm) => wm.MovieID === movie.MovieID)
-                      ? "✔"
-                      : "+"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+<section className="py-8">
+  <h2 className="text-3xl font-bold text-red-500 mb-6 px-4 flex items-center justify-center">
+    All Movies
+  </h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
+  {filteredMovies.map((movie) => (
+  <div
+    key={movie.MovieID}
+    id={`movie-${movie.MovieID}`}
+    className={`bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition cursor-pointer ${
+      highlightedMovieId === movie.MovieID ? "border-4 border-red-500" : ""
+    }`}
+    onClick={() => {
+      console.log("Selected movie:", movie); // Debug log
+      setSelectedMovie(movie);
+    }}
+  >
+    {highlightedMovieId === movie.MovieID &&
+      console.log(`Highlighting movie: ${movie.Title}, ID: ${movie.MovieID}`)} {/* Log matching movie */}
+    <img
+      src={movie.ImagePath}
+      alt={movie.Title}
+      className="w-full h-64 object-cover"
+    />
+    <div className="p-4">
+      <h3 className="font-bold text-xl truncate">{movie.Title}</h3>
+      <p className="text-sm text-gray-400">{movie.Genre}</p>
+      <div className="flex justify-between items-center mt-4">
+        <a
+          href={movie.Trailer}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-400 underline"
+        >
+          Watch Trailer
+        </a>
+        <button
+          className="text-2xl"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleAddToWatchlist(movie);
+          }}
+        >
+          {watchlist.some((wm) => wm.MovieID === movie.MovieID) ? "✔" : "+"}
+        </button>
+      </div>
+    </div>
+  </div>
+))}
+
+  </div>
+</section>
+
       
       {/* Genre Modal */}
       {isGenreModalOpen && (

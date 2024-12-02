@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
+import './Feed.css';
 
 function Feed() {
   const [posts, setPosts] = useState([]);
@@ -7,7 +9,8 @@ function Feed() {
   const [selectedPost, setSelectedPost] = useState(null); // Selected post for the comment modal
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const [userProfiles, setUserProfiles] = useState({}); // To store profile pictures of commenters
-
+  const [highlightedPostId, setHighlightedPostId] = useState(null);
+  const location = useLocation();
   const currentUser = localStorage.getItem("username"); // Logged-in user
 
   // Fetch posts
@@ -25,6 +28,59 @@ function Feed() {
       console.error("Error fetching posts:", error);
     }
   };
+  // Share post functionality
+  const handleShare = async (postId) => {
+    try {
+      const token = localStorage.getItem("access_token");
+      const response = await axios.post(
+        `http://127.0.0.1:5000/share_post/${postId}`,
+        {}, // POST request payload (none required here)
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+  
+      if (response.status === 201) {
+        alert("Post shared successfully!");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        // Handle case where the post is already shared
+        alert(error.response.data.message); // Message from the backend: 'You have already shared this post!'
+      } else {
+        console.error("Error sharing post:", error);
+        alert("An error occurred while sharing the post. Please try again.");
+      }
+    }
+  };
+  
+  useEffect(() => {
+    const scrollToAndHighlightPost = () => {
+      const params = new URLSearchParams(window.location.search);
+      const postId = params.get("postId"); // Get the postId from the query parameter
+      if (postId) {
+        const postElement = document.getElementById(`post-${postId}`);
+        if (postElement) {
+          // Scroll to the post
+          postElement.scrollIntoView({ behavior: "smooth" });
+  
+          // Highlight the post
+          setHighlightedPostId(postId);
+  
+          // Remove the highlight after 3 seconds
+          setTimeout(() => {
+            setHighlightedPostId(null);
+          }, 3000);
+        } else {
+          console.warn(`Post with ID "post-${postId}" not found.`);
+        }
+      }
+    };
+  
+    scrollToAndHighlightPost(); // Call the function on component mount
+  }, [posts]); // Trigger only when posts change
+   // Trigger whenever the location changes
+
 
   const fetchUserProfile = async (username) => {
     if (userProfiles[username]) return; // Avoid fetching again if already fetched
@@ -135,43 +191,51 @@ function Feed() {
   };
 
   return (
-    <div className="container mx-auto py-8 text-white">
+    <div className="container mx-auto py-16 text-white">
       <h1 className="text-3xl font-bold text-red-500 mb-6 text-center">
         Social Feed
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-        {posts.map((post) => (
-          <div
-            key={post.PostID}
-            className="bg-gray-900 rounded-lg overflow-hidden shadow-lg w-full max-w-md mx-auto relative"
+  {posts.map((post) => (
+    <div
+      key={post.PostID}
+      id={`post-${post.PostID}`} // Unique ID for each post
+      className={`bg-gray-900 rounded-lg overflow-hidden shadow-lg w-full max-w-md mx-auto relative ${
+        highlightedPostId === post.PostID ? "highlighted" : ""
+      }`} // Highlight when applicable
+    >
+      <div className="p-4 flex justify-between items-center">
+        <div className="flex items-center">
+          <span className="text-yellow-500 text-xl mr-2">★</span>
+          <span className="text-sm text-white font-bold">
+            {post.Rating.toFixed(1)}
+          </span>
+        </div>
+        <p className="font-bold">{post.Author}</p>
+      </div>
+      <img
+        src={post.ImagePath}
+        alt={post.Review}
+        className="w-full h-64 object-cover"
+      />
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={() => handleLike(post.PostID)}
+            className="text-red-500 font-bold flex items-center"
           >
-            <div className="p-4 flex justify-between items-center">
-              {/* Actual Rating from Backend */}
-              <div className="flex items-center">
-                <span className="text-yellow-500 text-xl mr-2">★</span>
-                <span className="text-sm text-white font-bold">
-                  {post.Rating.toFixed(1)}
-                </span>
-              </div>
-              <p className="font-bold">{post.Author}</p>
-            </div>
-            <img
-              src={post.ImagePath}
-              alt={post.Review}
-              className="w-full h-64 object-cover"
-            />
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-4">
-                <button
-                  onClick={() => handleLike(post.PostID)}
-                  className="text-red-500 font-bold flex items-center"
-                >
-                  ❤️ Like {post.Likes}
-                </button>
+            ❤️ Like {post.Likes}
+          </button>
                 {/* User's Rating (Input) */}
                 <div className="flex items-center">
                   {renderStars(post.PostID, post.UserRating || 0)}
                 </div>
+                <button
+                  onClick={() => handleShare(post.PostID)}
+                  className="text-blue-500 font-bold"
+                >
+                  ↗ Share
+                </button>
               </div>
               <p className="mb-4">
                 <span className="font-bold">{post.Author}:</span> {post.Review}

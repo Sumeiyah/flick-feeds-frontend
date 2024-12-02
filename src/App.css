@@ -37,3 +37,11 @@
     transform: rotate(360deg);
   }
 }
+.highlighted {
+  border: 3px solid red;
+  transition: border 0.5s ease;
+}
+.highlight {
+  background-color: yellow; /* Highlight color */
+  transition: background-color 0.3s ease;
+}
