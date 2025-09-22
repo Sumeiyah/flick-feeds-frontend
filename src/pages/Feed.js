@@ -238,7 +238,7 @@ function Feed() {
                 </button>
               </div>
               <p className="mb-4">
-                <span className="font-bold">{post.Author}:</span> {post.Review}
+                <span className="font-bold">top review:</span> {post.Review}
               </p>
               <p className="text-sm mb-4">
                 <span className="font-bold">Movie Title:</span> {post.MovieTitle}

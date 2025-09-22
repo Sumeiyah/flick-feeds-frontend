@@ -210,7 +210,7 @@ function HomePage() {
       {latestMovies.length > 0 && (
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, x: -400 }}
+          initial={{ opacity: 1, x: -400 }}
           animate={{ opacity: 2, x: 0 }}
           exit={{ opacity: 0, x: 400 }}
           transition={{ duration: 1 }}

@@ -12,7 +12,7 @@ function NavBar({ searchQuery, setSearchQuery, setIsGenreModalOpen }) {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-40 text-white">
-      <div className="container mx-auto flex justify-between items-center px-4 py-3">
+      <div className="container mx-auto flex justify-between items-center px-2 py-3">
         {/* App Name */}
         <div className="flex items-center space-x-4">
           <Link to="/" className="text-red-600 text-2xl font-bold">
@@ -24,7 +24,7 @@ function NavBar({ searchQuery, setSearchQuery, setIsGenreModalOpen }) {
             <>
               {/* Original Search Bar Style for Large Screens */}
               <div
-                className="hidden lg:flex absolute top-3 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-20 rounded-full px-1  flex items-center w-full max-w-md"
+                className="hidden lg:flex absolute top-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-20 rounded-full px-1  flex items-center w-full max-w-md"
                 style={{ backdropFilter: "" }}
               >
                 <button
