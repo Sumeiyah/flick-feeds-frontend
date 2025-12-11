@@ -55,29 +55,29 @@ function ProfilePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userResponse = await axios.get(`http://127.0.0.1:5000/profile/${username}`);
+        const userResponse = await axios.get(`https://flick-feeds-backend.onrender.com/profile/${username}`);
         setUser(userResponse.data);
 
-        const followersResponse = await axios.get(`http://127.0.0.1:5000/followers/${username}`);
+        const followersResponse = await axios.get(`https://flick-feeds-backend.onrender.com/followers/${username}`);
         setFollowers(followersResponse.data.followers_count);
 
-        const followingResponse = await axios.get(`http://127.0.0.1:5000/following/${username}`);
+        const followingResponse = await axios.get(`https://flick-feeds-backend.onrender.com/following/${username}`);
         setFollowing(followingResponse.data.following_count);
 
-        const watchedMoviesResponse = await axios.get(`http://127.0.0.1:5000/watched_movies/${username}`);
+        const watchedMoviesResponse = await axios.get(`https://flick-feeds-backend.onrender.com/watched_movies/${username}`);
         setWatchedMovies(watchedMoviesResponse.data.watched_movies || []);
 
-        const sharedPostsResponse = await axios.get(`http://127.0.0.1:5000/get_user_posts/${username}`);
+        const sharedPostsResponse = await axios.get(`https://flick-feeds-backend.onrender.com/get_user_posts/${username}`);
         setSharedPosts(sharedPostsResponse.data.posts || []);
 
-        const userClubsResponse = await axios.get(`http://127.0.0.1:5000/user_clubs/${username}`);
+        const userClubsResponse = await axios.get(`https://flick-feeds-backend.onrender.com/user_clubs/${username}`);
         setUserClubs(userClubsResponse.data.clubs || []);
 
         
         // Fetch follow status
         const token = localStorage.getItem('access_token');
         const followStatusResponse = await axios.get(
-          `http://127.0.0.1:5000/follow_status/${userResponse.data.UserID}`,
+          `https://flick-feeds-backend.onrender.com/follow_status/${userResponse.data.UserID}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ function ProfilePage() {
 
   const fetchFollowersList = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:5000/followers_list/${username}`);
+      const response = await axios.get(`https://flick-feeds-backend.onrender.com/followers_list/${username}`);
       setFollowersList(response.data.followers);
       setShowFollowersModal(true);
     } catch (error) {
@@ -106,7 +106,7 @@ function ProfilePage() {
   
   const fetchFollowingList = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:5000/following_list/${username}`);
+      const response = await axios.get(`https://flick-feeds-backend.onrender.com/following_list/${username}`);
       setFollowingList(response.data.following);
       setShowFollowingModal(true);
     } catch (error) {
@@ -123,7 +123,7 @@ function ProfilePage() {
   const handleFollow = async () => {
     try {
       const token = localStorage.getItem('access_token');
-      await axios.post(`http://127.0.0.1:5000/follow_user/${user.UserID}`, null, {
+      await axios.post(`https://flick-feeds-backend.onrender.com/follow_user/${user.UserID}`, null, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setIsFollowing(true);
@@ -137,7 +137,7 @@ function ProfilePage() {
   const handleUnfollow = async () => {
     try {
       const token = localStorage.getItem('access_token');
-      await axios.delete(`http://127.0.0.1:5000/unfollow_user/${user.UserID}`, {
+      await axios.delete(`https://flick-feeds-backend.onrender.com/unfollow_user/${user.UserID}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setIsFollowing(false);
@@ -154,7 +154,7 @@ function ProfilePage() {
 
   const handleLeaveClub = async (clubId) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/leave_club/${clubId}`, {
+      await axios.delete(`https://flick-feeds-backend.onrender.com/leave_club/${clubId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` },
       });
       setUserClubs((prevClubs) => prevClubs.filter((club) => club.ClubID !== clubId));

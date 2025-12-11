@@ -17,7 +17,7 @@ function Feed() {
   const fetchPosts = async () => {
     try {
       const token = localStorage.getItem("access_token");
-      const response = await axios.get("http://127.0.0.1:5000/posts", {
+      const response = await axios.get("https://flick-feeds-backend.onrender.com/posts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const uniquePosts = Array.from(
@@ -33,7 +33,7 @@ function Feed() {
     try {
       const token = localStorage.getItem("access_token");
       const response = await axios.post(
-        `http://127.0.0.1:5000/share_post/${postId}`,
+        `https://flick-feeds-backend.onrender.com/share_post/${postId}`,
         {}, // POST request payload (none required here)
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -85,7 +85,7 @@ function Feed() {
   const fetchUserProfile = async (username) => {
     if (userProfiles[username]) return; // Avoid fetching again if already fetched
     try {
-      const response = await axios.get(`http://127.0.0.1:5000/profile/${username}`);
+      const response = await axios.get(`https://flick-feeds-backend.onrender.com/profile/${username}`);
       setUserProfiles((prevProfiles) => ({
         ...prevProfiles,
         [username]: response.data.ProfilePicture,
@@ -110,7 +110,7 @@ function Feed() {
     try {
       const token = localStorage.getItem("access_token");
       await axios.post(
-        `http://127.0.0.1:5000/like_post/${postId}`,
+        `https://flick-feeds-backend.onrender.com/like_post/${postId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -129,7 +129,7 @@ function Feed() {
       const token = localStorage.getItem("access_token");
       const newComment = commentText[postId];
       await axios.post(
-        `http://127.0.0.1:5000/comment_on_post/${postId}`,
+        `https://flick-feeds-backend.onrender.com/comment_on_post/${postId}`,
         { comment_text: newComment },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -46,7 +46,7 @@ function HomePage() {
         setTrendingMovies(trendingData);
   
         const recommendedResponse = await axios.get(
-          "http://127.0.0.1:5000/movies"
+          "https://flick-feeds-backend.onrender.com/movies"
         );
         const moviesData = recommendedResponse.data.movies || [];
         const filteredMovies = moviesData.filter(
@@ -72,7 +72,7 @@ function HomePage() {
         if (!username) throw new Error("Username not found");
   
         const userResponse = await axios.get(
-          `http://127.0.0.1:5000/profile/${username}`,
+          `https://flick-feeds-backend.onrender.com/profile/${username}`,
           {
             withCredentials: true,
           }
@@ -151,7 +151,7 @@ function HomePage() {
       }
   
       const response = await axios.post(
-        "http://127.0.0.1:5000/add_watched_movie",
+        "https://flick-feeds-backend.onrender.com/add_watched_movie",
         { movie_id: movie.MovieID },
         { headers: { Authorization: `Bearer ${token}` } }
       );

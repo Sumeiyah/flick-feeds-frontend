@@ -13,7 +13,7 @@ function ProfileDropdown() {
     const username = localStorage.getItem('username');
     if (username) {
       // Fetch user profile from the backend
-      fetch(`http://127.0.0.1:5000/profile/${username}`, {
+      fetch(`https://flick-feeds-backend.onrender.com/profile/${username}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },

@@ -15,7 +15,7 @@ function UpdateProfile() {
 
   useEffect(() => {
     // Fetch the current user data
-    axios.get(`http://127.0.0.1:5000/profile/${localStorage.getItem('username')}`)
+    axios.get(`https://flick-feeds-backend.onrender.com/profile/${localStorage.getItem('username')}`)
       .then(response => {
         setUser(response.data);
         setUsername(response.data.Username);
@@ -40,7 +40,7 @@ function UpdateProfile() {
       if (contactDetails && contactDetails !== user.ContactDetails) updatedData.contactDetails = contactDetails;
 
       // Send the update request
-      const response = await axios.put(`http://127.0.0.1:5000/update_profile/${userId}`, updatedData);
+      const response = await axios.put(`https://flick-feeds-backend.onrender.com/update_profile/${userId}`, updatedData);
       
       if (response.status === 200) {
         alert('Profile updated successfully!');

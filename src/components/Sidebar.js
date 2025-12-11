@@ -10,22 +10,22 @@ function Sidebar({ userId }) {
 
   useEffect(() => {
     // Fetch watched movies
-    axios.get(`http://127.0.0.1:5000/watched_movies/${userId}`)
+    axios.get(`https://flick-feeds-backend.onrender.com/watched_movies/${userId}`)
       .then(response => setWatchedMovies(response.data.watched_movies))
       .catch(error => console.error("Error fetching watched movies:", error));
 
     // Fetch shared posts
-    axios.get(`http://127.0.0.1:5000/get_user_posts/${userId}`)
+    axios.get(`https://flick-feeds-backend.onrender.com/get_user_posts/${userId}`)
       .then(response => setSharedPosts(response.data.posts))
       .catch(error => console.error("Error fetching shared posts:", error));
 
     // Fetch followers count
-    axios.get(`http://127.0.0.1:5000/followers/${userId}`)
+    axios.get(`https://flick-feeds-backend.onrender.com/followers/${userId}`)
       .then(response => setFollowers(response.data.followers_count))
       .catch(error => console.error("Error fetching followers count:", error));
 
     // Fetch following count
-    axios.get(`http://127.0.0.1:5000/following/${userId}`)
+    axios.get(`https://flick-feeds-backend.onrender.com/following/${userId}`)
       .then(response => setFollowing(response.data.following_count))
       .catch(error => console.error("Error fetching following count:", error));
   }, [userId]);

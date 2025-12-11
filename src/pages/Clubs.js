@@ -49,7 +49,7 @@ function Clubs() {
   
     try {
       const response = await axios.get(
-        `http://127.0.0.1:5000/movies_by_genre/${newGenre}`
+        `https://flick-feeds-backend.onrender.com/movies_by_genre/${newGenre}`
       );
       setEditFilteredMovies(response.data.movies || []); // Update the available movies
     } catch (error) {
@@ -71,7 +71,7 @@ function Clubs() {
   useEffect(() => {
     const fetchClubs = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/clubs");
+        const response = await axios.get("https://flick-feeds-backend.onrender.com/clubs");
         setClubs(response.data.clubs);
       } catch (error) {
         console.error("Error fetching clubs:", error);
@@ -101,7 +101,7 @@ function Clubs() {
     try {
       // Fetch available movies for the genre
       const response = await axios.get(
-        `http://127.0.0.1:5000/movies_by_genre/${club.Genre}`
+        `https://flick-feeds-backend.onrender.com/movies_by_genre/${club.Genre}`
       );
   
       // Filter out already selected movies
@@ -124,7 +124,7 @@ function Clubs() {
     try {
       const token = localStorage.getItem("access_token");
       const response = await axios.delete(
-        `http://127.0.0.1:5000/remove_member/${clubId}/${userId}`,
+        `https://flick-feeds-backend.onrender.com/remove_member/${clubId}/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -140,7 +140,7 @@ function Clubs() {
       }));
   
       // Optionally refresh the entire clubs list
-      const updatedClubs = await axios.get(`http://127.0.0.1:5000/clubs`);
+      const updatedClubs = await axios.get(`https://flick-feeds-backend.onrender.com/clubs`);
       setClubs(updatedClubs.data.clubs);
     } catch (error) {
       console.error("Error removing member:", error);
@@ -173,7 +173,7 @@ function Clubs() {
   
       // Send PUT request
       const response = await axios.put(
-        `http://127.0.0.1:5000/edit_club/${clubId}`,
+        `https://flick-feeds-backend.onrender.com/edit_club/${clubId}`,
         formData,
         {
           headers: {
@@ -186,7 +186,7 @@ function Clubs() {
       alert(response.data.message);
   
       // Refresh clubs after successful update
-      const updatedClubs = await axios.get("http://127.0.0.1:5000/clubs");
+      const updatedClubs = await axios.get("https://flick-feeds-backend.onrender.com/clubs");
       setClubs(updatedClubs.data.clubs);
   
       // Reset edit state
@@ -206,7 +206,7 @@ function Clubs() {
 
     try {
       const response = await axios.get(
-        `http://127.0.0.1:5000/movies_by_genre/${genre}`
+        `https://flick-feeds-backend.onrender.com/movies_by_genre/${genre}`
       );
       setCreateFilteredMovies(response.data.movies || []);
     } catch (error) {
@@ -278,7 +278,7 @@ function Clubs() {
       );
   
       const response = await axios.post(
-        "http://127.0.0.1:5000/create_club",
+        "https://flick-feeds-backend.onrender.com/create_club",
         formData,
         {
           headers: {
@@ -298,7 +298,7 @@ function Clubs() {
       setSelectedMovies([]);
       setCreateFilteredMovies([]);
   
-      const updatedClubs = await axios.get("http://127.0.0.1:5000/clubs");
+      const updatedClubs = await axios.get("https://flick-feeds-backend.onrender.com/clubs");
       setClubs(updatedClubs.data.clubs);
     } catch (error) {
       console.error("Error creating club:", error.response?.data || error);
@@ -314,7 +314,7 @@ function Clubs() {
     try {
       const token = localStorage.getItem("access_token");
       const response = await axios.post(
-        `http://127.0.0.1:5000/join_club/${clubId}`,
+        `https://flick-feeds-backend.onrender.com/join_club/${clubId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -322,7 +322,7 @@ function Clubs() {
       );
 
       alert(response.data.message || "Successfully joined the club!");
-      const updatedClubs = await axios.get("http://127.0.0.1:5000/clubs");
+      const updatedClubs = await axios.get("https://flick-feeds-backend.onrender.com/clubs");
       setClubs(updatedClubs.data.clubs);
     } catch (error) {
       console.error("Error joining the club:", error);
@@ -334,7 +334,7 @@ function Clubs() {
     try {
       const token = localStorage.getItem("access_token");
       const response = await axios.delete(
-        `http://127.0.0.1:5000/delete_club/${clubId}`,
+        `https://flick-feeds-backend.onrender.com/delete_club/${clubId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

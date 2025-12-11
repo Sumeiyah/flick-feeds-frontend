@@ -12,7 +12,7 @@ function MovieDetail() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/movies/${id}`);
+        const response = await axios.get(`https://flick-feeds-backend.onrender.com/movies/${id}`);
         setMovie(response.data);
       } catch (error) {
         console.error("Error fetching movie details:", error);
@@ -23,7 +23,7 @@ function MovieDetail() {
 
   const handleAddToWatchlist = async () => {
     try {
-      await axios.post(`http://127.0.0.1:5000/add_to_watchlist`, { movieId: id });
+      await axios.post(`https://flick-feeds-backend.onrender.com/add_to_watchlist`, { movieId: id });
       alert("Added to watchlist");
     } catch (error) {
       console.error("Error adding to watchlist:", error);
@@ -32,7 +32,7 @@ function MovieDetail() {
 
   const handleReviewSubmit = async () => {
     try {
-      await axios.post(`http://127.0.0.1:5000/submit_review`, { movieId: id, review, rating });
+      await axios.post(`https://flick-feeds-backend.onrender.com/submit_review`, { movieId: id, review, rating });
       alert("Review submitted");
     } catch (error) {
       console.error("Error submitting review:", error);

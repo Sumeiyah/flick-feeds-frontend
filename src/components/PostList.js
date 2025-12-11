@@ -7,7 +7,7 @@ function PostsList() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/posts')
+    axios.get('https://flick-feeds-backend.onrender.com/posts')
       .then(response => setPosts(response.data.posts))
       .catch(error => console.error('Error fetching posts:', error));
   }, []);

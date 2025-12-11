@@ -11,7 +11,7 @@ function SharedPostDetail() {
   useEffect(() => {
     const fetchPostDetails = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/share_post/${postId}`);
+        const response = await axios.get(`https://flick-feeds-backend.onrender.com/share_post/${postId}`);
         setPost(response.data);
       } catch (error) {
         console.error('Error fetching post details:', error);
